@@ -2,7 +2,6 @@ package services
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sql-api/dto"
@@ -26,7 +25,8 @@ func QueryService(c *gin.Context) ([]byte, int64, error) {
 
 	ret := db.Raw(qb.Query).Find(&result)
 	if ret.Error != nil {
-		fmt.Println(ret.Error.Error())
+
+		return []byte(""), 0, ret.Error
 	}
 	bytes, _ := json.Marshal(result)
 	return bytes, ret.RowsAffected, nil

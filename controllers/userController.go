@@ -13,19 +13,26 @@ func RunQuery() gin.HandlerFunc {
 		message, rowsAffected, err := services.QueryService(ctx)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
+				"message":      err.Error(),
+				"rowsAffected": rowsAffected,
+				"err":          err,
 			})
 			return
 		}
+
 		if rowsAffected == 0 {
 			ctx.JSON(200, gin.H{
-				"message": "Nothing to do.",
+				"message":      "Action Successful",
+				"rowsAffected": rowsAffected,
+				"err":          err,
 			})
 			return
 		}
 
 		ctx.JSON(200, gin.H{
-			"message": string(message),
+			"message":      string(message),
+			"rowsAffected": rowsAffected,
+			"err":          err,
 		})
 		return
 
