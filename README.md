@@ -1,1 +1,1 @@
-Service for LOS.
+go boilerplate
